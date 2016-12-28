@@ -1,0 +1,22 @@
+{
+  "name": "muse3/dub-color",
+  "type": "library",
+  "description": "Get the human name of a color.",
+  "keywords": ["image", "color", "palette", "human"],
+  "homepage": "https://github.com/ericpugh/dub-color",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Eric Pugh",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": ">=5.4.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "": "src"
+    }
+  }
+}
