@@ -16,7 +16,7 @@
   },
   "autoload": {
       "psr-4": {
-          "ericpugh\\DubColor\\": "src/DubColor"
+          "ericpugh\\DubColor\\": "src/"
       }
   }
 }
