@@ -1,17 +1,17 @@
 <?php
 
-namespace Muse3;
+namespace ericpugh\DubColor;
 
-use Muse3\DubColor\Color;
-use Muse3\DubColor\Palette\Crayola;
-use Muse3\DubColor\Palette\Css3;
-use Muse3\DubColor\Palette\Ncs;
+use ericpugh\DubColor\Color;
+use ericpugh\DubColor\Palette\Crayola;
+use ericpugh\DubColor\Palette\Css3;
+use ericpugh\DubColor\Palette\Ncs;
 
 /**
  * Class DubColor
- * @package Muse3
+ * @package ericpugh\dub-color
  */
-class DubColor {
+class ColorDubber {
 
   /**
    * @var array
@@ -103,7 +103,7 @@ class DubColor {
   /**
    * Find the the closest matching color in the current color palette
    *
-   * @param \Muse3\DubColor\Color $color
+   * @param \ericpugh\DubColor\Color $color
    *   A color object
    *
    * @return string

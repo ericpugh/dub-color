@@ -1,11 +1,11 @@
 <?php
 
-namespace Muse3\DubColor\Palette;
+namespace ericpugh\DubColor\Palette;
 
 /**
  * Class Ncs
  *   The Natural Color System colors.
- * @package Muse3
+ * @package ericpugh\dub-color
  */
 final class Ncs {
 

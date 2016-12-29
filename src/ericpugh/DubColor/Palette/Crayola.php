@@ -1,11 +1,11 @@
 <?php
 
-namespace Muse3\DubColor\Palette;
+namespace ericpugh\DubColor\Palette;
 
 /**
  * Class Crayola
  *   The Crayola colors.
- * @package Muse3
+ * @package ericpugh\dub-color
  */
 final class Crayola {
 

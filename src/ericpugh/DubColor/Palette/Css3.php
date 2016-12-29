@@ -1,11 +1,11 @@
 <?php
 
-namespace Muse3\DubColor\Palette;
+namespace ericpugh\DubColor\Palette;
 
 /**
  * Class Css3
  *   The CSS Module Level 3 colors.
- * @package Muse3
+ * @package ericpugh\dub-color
  */
 final class Css3 {
 

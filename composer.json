@@ -1,5 +1,5 @@
 {
-  "name": "muse3/dub-color",
+  "name": "ericpugh/dub-color",
   "type": "library",
   "description": "Get the human name of a color.",
   "keywords": ["image", "color", "palette", "human"],
@@ -16,7 +16,7 @@
   },
   "autoload": {
       "psr-4": {
-          "Mus3\\DubColor\\": "src/"
+          "ericpugh\\DubColor\\": "src/"
       }
   }
 }

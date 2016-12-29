@@ -1,6 +1,6 @@
 <?php
 
-namespace Muse3\DubColor;
+namespace ericpugh\DubColor;
 
 /**
  * Color utility and conversion
