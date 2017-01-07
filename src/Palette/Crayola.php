@@ -7,8 +7,25 @@ namespace ericpugh\DubColor\Palette;
  *   The Crayola colors.
  * @package ericpugh\dub-color
  */
-final class Crayola {
+final class Crayola implements PaletteInterface {
 
+  /**
+   * @return array
+   */
+  public static function getColors() {
+    return self::$colors;
+  }
+
+  /**
+   * @return array
+   */
+  public function toArray() {
+    return self::$colors;
+  }
+
+  /**
+   * @var array
+   */
   public static $colors =
       [
       '#fc89ac' =>

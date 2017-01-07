@@ -7,8 +7,25 @@ namespace ericpugh\DubColor\Palette;
  *   The CSS Module Level 4 colors.
  * @package ericpugh\dub-color
  */
-final class Css4 {
+final class Css4 implements PaletteInterface {
 
+  /**
+   * @return array
+   */
+  public static function getColors() {
+    return self::$colors;
+  }
+
+  /**
+   * @return array
+   */
+  public function toArray() {
+    return self::$colors;
+  }
+
+  /**
+   * @var array
+   */
   public static $colors =
     [
       '#7cfc00' =>

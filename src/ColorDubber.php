@@ -3,9 +3,7 @@
 namespace ericpugh\DubColor;
 
 use ericpugh\DubColor\Color;
-use ericpugh\DubColor\Palette\Crayola;
 use ericpugh\DubColor\Palette\Css3;
-use ericpugh\DubColor\Palette\Ncs;
 
 /**
  * Class DubColor
@@ -16,59 +14,42 @@ class ColorDubber {
   /**
    * @var array
    */
-  public $colors;
-
-  /**
-   * @var string
-   */
-  public $paletteType;
+  public $colorPalette;
 
   /**
    * DubColor constructor.
-   * @param string $palette_name
+   * @param array $colorPalette
+   *   Color Palette array
    */
-  function __construct($palette_name = "") {
-    $this->setColorPalette($palette_name);
+  function __construct($colorPalette = []) {
+    if (empty($colorPalette)) {
+      // Set a default color palette.
+      $colorPalette = Css3::getColors();
+    }
+    $this->setColorPalette($colorPalette);
   }
 
   /**
-   * Get static color data.
-   *
-   * @param string $palette_name
-   *   The palette name.
+   * Get color palette data.
    */
-  public function setColorPalette($palette_name) {
-    switch (strtolower($palette_name)) {
-      case 'crayola':
-        $this->colors = Crayola::$colors;
-        $this->paletteType = 'Crayola';
-        break;
-      case 'css3':
-        $this->colors = Css3::$colors;
-        $this->paletteType = 'Css3';
-        break;
-      case 'css4':
-        $this->colors = Css3::$colors;
-        $this->paletteType = 'Css4';
-        break;
-      case 'ncs':
-        $this->colors = Ncs::$colors;
-        $this->paletteType = 'Ncs';
-        break;
-      default:
-        // Set a default color palette.
-        $this->colors = Css3::$colors;
-        $this->paletteType = 'Css3';
-        break;
-    }
-    return $this;
+  public function getColorPalette() {
+    return $this->colorPalette;
+  }
+
+  /**
+   * Set color palette data.
+   *
+   * @param array $palette
+   */
+  public function setColorPalette($palette) {
+    $this->colorPalette = $palette;
   }
 
   /**
    * @return int
    */
-  public function countPaletteColors() {
-    return count($this->colors);
+  public function countColorPalette() {
+    return count($this->colorPalette);
   }
 
   /**
@@ -111,7 +92,7 @@ class ColorDubber {
    */
   public function closestColor(Color $color) {
     // Convert the color palette to an array of Int color values.
-    $palette = array_keys($this->colors);
+    $palette = array_keys($this->colorPalette);
     $searchablePalette = $this->hexColorsToInt($palette);
     // Get the index in the search palette of the closest matching color.
     $matchIndex = $color->getClosestMatch($searchablePalette);
@@ -129,8 +110,8 @@ class ColorDubber {
    */
   public function getColorName($hex) {
     $hex = strtolower($hex);
-    if (isset($this->colors[$hex]) && isset($this->colors[$hex]['name'])) {
-      return $this->colors[$hex]['name'];
+    if (isset($this->colorPalette[$hex]) && isset($this->colorPalette[$hex]['name'])) {
+      return $this->colorPalette[$hex]['name'];
     }
     else {
       return FALSE;
@@ -148,8 +129,8 @@ class ColorDubber {
    */
   public function getColorFamily($hex) {
     $hex = strtolower($hex);
-    if (isset($this->colors[$hex]) && isset($this->colors[$hex]['family'])) {
-      return $this->colors[$hex]['family'];
+    if (isset($this->colorPalette[$hex]) && isset($this->colorPalette[$hex]['family'])) {
+      return $this->colorPalette[$hex]['family'];
     }
     else {
       return FALSE;
