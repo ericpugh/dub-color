@@ -22,11 +22,11 @@ $dubber = new ColorDubber($palette);
 $total_num_colors = $dubber->countColorPalette();
 
 // An example hex color.
-$pink = '#e0de69';
-$pinkish_color = new Color($dubber::fromHexToInt($pink));
-// Finds the closest HEX color in a given palette.
-$closest = $dubber->closestColor($pinkish_color);
-// Finds the name "Shocking Pink".
+$example_hex = '#83F600';
+$example_color = new Color($dubber::fromHexToInt($example_hex));
+// Finds the closest HEX color in the current palette.
+$closest = $dubber->closestColor($example_color);
+// Finds the name "lawngreen".
 $name = $dubber->getColorName($closest);
 
 // Output results.
