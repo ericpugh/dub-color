@@ -7,8 +7,25 @@ namespace ericpugh\DubColor\Palette;
  *   The Natural Color System colors.
  * @package ericpugh\dub-color
  */
-final class Ncs {
+final class Ncs implements PaletteInterface {
 
+  /**
+   * @return array
+   */
+  public static function getColors() {
+    return self::$colors;
+  }
+
+  /**
+   * @return array
+   */
+  public function toArray() {
+    return self::$colors;
+  }
+
+  /**
+   * @var array
+   */
   public static $colors =
     [
       '#ffffff' =>

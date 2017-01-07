@@ -4,16 +4,13 @@ namespace ericpugh\DubColor;
 
 /**
  * Color utility and conversion
+ *  Represents a color value, and converts between RGB/HSV/XYZ/Lab.
  *
- * Represents a color value, and converts between RGB/HSV/XYZ/Lab
- *
- * Example:
- * $color = new Color(0xFFFFFF);
- *
- * @author Harold Asbridge <hasbridge@gmail.com>
+ * @package ericpugh\dub-color
+ * @author Original Author: Harold Asbridge <hasbridge@gmail.com>
  */
-class Color
-{
+class Color implements ColorInterface {
+
   /**
    * @var int
    */
@@ -22,10 +19,10 @@ class Color
   /**
    * Initialize object
    *
-   * @param int $color An integer color, such as a return value from imagecolorat()
+   * @param int $color An integer color
+   *   For example a return value from imagecolorat()
    */
-  public function __construct($intColor = null)
-  {
+  public function __construct($intColor = null) {
     if ($intColor) {
       $this->fromInt($intColor);
     }
@@ -38,8 +35,7 @@ class Color
    *
    * @return Color
    */
-  public function fromHex($hexValue)
-  {
+  public function fromHex($hexValue) {
     $this->color = hexdec($hexValue);
 
     return $this;
@@ -54,8 +50,7 @@ class Color
    *
    * @return Color
    */
-  public function fromRgbInt($red, $green, $blue)
-  {
+  public function fromRgbInt($red, $green, $blue) {
     $this->color = (int)(($red << 16) + ($green << 8) + $blue);
 
     return $this;
@@ -70,8 +65,7 @@ class Color
    *
    * @return Color
    */
-  public function fromRgbHex($red, $green, $blue)
-  {
+  public function fromRgbHex($red, $green, $blue) {
     return $this->fromRgbInt(hexdec($red), hexdec($green), hexdec($blue));
   }
 
@@ -79,10 +73,10 @@ class Color
    * Init color from a hex RGB string (#00FF00)
    *
    * @param $hex
+   *
    * @return Color
    */
-  public function fromRgbString($hex)
-  {
+  public function fromRgbString($hex) {
     $hex = str_replace("#", "", $hex);
 
     if(strlen($hex) == 3) {
@@ -105,8 +99,7 @@ class Color
    *
    * @return Color
    */
-  public function fromInt($intValue)
-  {
+  public function fromInt($intValue) {
     $this->color = $intValue;
 
     return $this;
@@ -118,10 +111,10 @@ class Color
    * @param $x
    * @param $y
    * @param $brightness
+   *
    * @return Color
    */
-  public function fromXYBri($x, $y, $brightness)
-  {
+  public function fromXYBri($x, $y, $brightness) {
     $_x = ($x * $brightness) / $y;
     $_y = $brightness;
     $_z = ((1 - $x - $y) * $brightness) / $y;
@@ -147,8 +140,7 @@ class Color
    *
    * @return string
    */
-  public function toHex()
-  {
+  public function toHex() {
     return str_pad(dechex($this->color),6,"0",STR_PAD_LEFT);
   }
 
@@ -157,8 +149,7 @@ class Color
    *
    * @return array
    */
-  public function toRgbInt()
-  {
+  public function toRgbInt() {
     return array(
       'red'   => (int)(255 & ($this->color >> 16)),
       'green' => (int)(255 & ($this->color >> 8)),
@@ -171,8 +162,7 @@ class Color
    *
    * @return array
    */
-  public function toRgbHex()
-  {
+  public function toRgbHex() {
     return array_map(function($item){
       return dechex($item);
     }, $this->toRgbInt());
@@ -183,8 +173,7 @@ class Color
    *
    * @return string
    */
-  public function toRgbString()
-  {
+  public function toRgbString() {
     $hexes = $this->toRgbHex();
     array_walk($hexes, function(&$hex, $key){
       $hex = str_pad($hex,2,"0",STR_PAD_LEFT);
@@ -198,8 +187,7 @@ class Color
    *
    * @return array
    */
-  public function toHsvFloat()
-  {
+  public function toHsvFloat() {
     $rgb = $this->toRgbInt();
 
     $rgbMin = min($rgb);
@@ -256,10 +244,9 @@ class Color
    * Get HSV values for color
    * (integer values from 0-255, fast but less accurate)
    *
-   * @return int
+   * @return array
    */
-  public function toHsvInt()
-  {
+  public function toHsvInt() {
     $rgb = $this->toRgbInt();
 
     $rgbMin = min($rgb);
@@ -303,8 +290,7 @@ class Color
    *
    * @return array
    */
-  public function toXyz()
-  {
+  public function toXyz() {
     $rgb = $this->toRgbInt();
 
     // Normalize RGB values to 1
@@ -336,8 +322,7 @@ class Color
    *
    * @return array
    */
-  public function toLabCie()
-  {
+  public function toLabCie() {
     $xyz = $this->toXyz();
 
     //Ovserver = 2*, Iluminant=D65
@@ -368,8 +353,7 @@ class Color
    *
    * @return int
    */
-  public function toInt()
-  {
+  public function toInt() {
     return $this->color;
   }
 
@@ -377,9 +361,9 @@ class Color
    * Convert color to a CIE XYBri array.
    *
    * @return array
-   * @throws Exception
+   * @throws \Exception
    */
-  public function toXYBri(){
+  public function toXYBri() {
     $rgb = $this->toRgbInt();
 
     $r = $rgb['red'];
@@ -418,8 +402,7 @@ class Color
    *
    * @return string
    */
-  public function __toString()
-  {
+  public function __toString() {
     return $this->toString();
   }
 
@@ -428,8 +411,7 @@ class Color
    *
    * @return string
    */
-  public function toString()
-  {
+  public function toString() {
     return $this->toRgbString();
   }
 
@@ -440,8 +422,7 @@ class Color
    *
    * @return int
    */
-  public function getDistanceRgbFrom(Color $color)
-  {
+  public function getDistanceRgbFrom(Color $color) {
     $rgb1 = $this->toRgbInt();
     $rgb2 = $color->toRgbInt();
 
@@ -461,8 +442,7 @@ class Color
    *
    * @return float
    */
-  public function getDistanceLabFrom(Color $color)
-  {
+  public function getDistanceLabFrom(Color $color) {
     $lab1 = $this->toLabCie();
     $lab2 = $color->toLabCie();
 
@@ -482,8 +462,7 @@ class Color
    *
    * @return bool
    */
-  public function isGrayscale($threshold = 16)
-  {
+  public function isGrayscale($threshold = 16) {
     $rgb = $this->toRgbInt();
 
     // Get min and max rgb values, then difference between them
@@ -501,8 +480,7 @@ class Color
    *
    * @return mixed the array key of the matched color
    */
-  public function getClosestMatch(array $colors)
-  {
+  public function getClosestMatch(array $colors) {
     $matchDist = 10000;
     $matchKey = null;
     foreach($colors as $key => $color) {
@@ -518,4 +496,5 @@ class Color
 
     return $matchKey;
   }
+
 }

@@ -7,8 +7,25 @@ namespace ericpugh\DubColor\Palette;
  *   The CSS Module Level 3 colors.
  * @package ericpugh\dub-color
  */
-final class Css3 {
+final class Css3 implements PaletteInterface {
 
+  /**
+   * @return array
+   */
+  public static function getColors() {
+    return self::$colors;
+  }
+
+  /**
+   * @return array
+   */
+  public function toArray() {
+    return self::$colors;
+  }
+
+  /**
+   * @var array
+   */
   public static $colors =
     [
     '#7cfc00' =>
